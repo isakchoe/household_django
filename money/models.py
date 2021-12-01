@@ -8,4 +8,5 @@ class FinancialMemo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     money = models.IntegerField()
     comment = models.TextField(max_length = 30)
+    is_deleted = False
     

@@ -7,4 +7,4 @@ class FinancialMemoSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = FinancialMemo
-        fields = ('money', 'comment', 'id')
+        fields = ('id', 'money', 'comment', 'is_deleted')
