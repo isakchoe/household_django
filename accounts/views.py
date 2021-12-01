@@ -1,14 +1,15 @@
 
 from rest_framework import serializers, status
+from rest_framework.permissions import AllowAny
 from .serializers import UserSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
 
 
 
-
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def signup(request):  # User model CREATE
     
     # 데이터 받기 
@@ -25,79 +26,8 @@ def signup(request):  # User model CREATE
     if serializer.is_valid(raise_exception=True):
         user = serializer.save()
         
+        # 비밀번호 해싱 및 저장 
         user.set_password(request.data.get('password'))
         user.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        
-
-# @require_http_methods(['GET', 'POST'])
-# def update(request):
-#     # 회원정보 수정은, 타인이 아닌 본인에 의해서만 가능
-#     if request.user.is_authenticated:
-#         user = request.user
-#         if request.method == 'POST':
-#             form = CustomUserChangeForm(request.POST, instance=user)
-#             if form.is_valid():
-#                 user = form.save()
-#                 return redirect('movies:home')
-#         else:
-#             form = CustomUserChangeForm(instance=user)
-        
-#         context = {
-#             'form': form
-#         }
-#     return render(request, 'accounts/update.html', context)
-
-
-# @login_required
-# @require_http_methods(['GET', 'POST'])
-# def change_password(request):
-#     user = request.user
-#     if request.method == 'POST':
-#         form = PasswordChangeForm(user, request.POST)
-#         if form.is_valid():
-#             user = form.save()
-#             update_session_auth_hash(request, user)
-#             return redirect('movies:home')
-#     else:
-#         form = PasswordChangeForm(user)
-#     context = {
-#         'form': form,
-#     }
-#     return render(request, 'accounts/change_password.html', context)
-
-
-# @require_POST
-# def delete(request):
-#     # 회원정보 삭제는, 타인이 아닌 본인에 의해서만 가능
-#     user = request.user
-#     if user.is_authenticated:
-#         user.delete()
-#     return redirect('movies:home')
-
-
-# @require_http_methods(['GET', 'POST'])
-# def login(request):
-#     if request.user.is_authenticated:
-#         return redirect('movies:home')
-
-#     if request.method == 'POST':
-#         # AuthenticationForm => 일반 Form
-#         form = AuthenticationForm(request, request.POST)
-#         if form.is_valid():  # authenticate(id, pw) => 맞으면, user 객체를 반환
-#             user = form.get_user()
-#             auth_login(request, user)  # auth_login() => session & cookie 세팅
-#             return redirect(request.GET.get('next') or 'movies:home')
-#     else:
-#         form = AuthenticationForm()
-
-#     context = {'form': form,}
-#     return render(request, 'accounts/login.html', context)
-    
-
-# def logout(request):
-#     if request.user.is_authenticated:
-#         auth_logout(request)  # auth_logout => session, cookie 날리기
-#     return redirect('movies:home')
 
