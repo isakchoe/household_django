@@ -26,7 +26,7 @@ def create_or_read(request):
     
     
 
-@api_view(['PUT', 'DELETE', 'GET'])
+@api_view(['PUT', 'GET'])
 def put_delete_get(request, memo_pk):
     
     # 타겟 메모 
@@ -46,14 +46,13 @@ def put_delete_get(request, memo_pk):
     # 2. 정보 수정  
     # 3. 삭제된 메모 복구 
     elif request.method == 'PUT':
-        is_deleted = request.data.get('isDeleted')
 
         financial_memo_serializer = FinancialMemoSerializer(financial_memo, data = request.data)
         if financial_memo_serializer.is_valid(raise_exception = True):
             financial_memo_serializer.save()
         
         # 삭제된 메모 복구 혹은 메모 수정 요청 
-        if is_deleted == False:
+        if financial_memo.is_deleted == False:
                 return Response(financial_memo_serializer.data)            
         
         # 메모 삭제 요청 
