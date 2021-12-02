@@ -33,5 +33,5 @@ def signup(request):  # User model CREATE
         # 비밀번호 해싱 및 저장 
         user.set_password(request.data.get('password'))
         user.save()
-        return Response({"sign_up" : "success!"}, status=status.HTTP_201_CREATED)
+        return Response({"signup" : "success!"}, status=status.HTTP_201_CREATED)
 

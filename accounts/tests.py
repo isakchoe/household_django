@@ -23,6 +23,7 @@ class SignupTest(unittest.TestCase):
 
         response = client.post('/accounts/signup/', json.dumps(signup_data), content_type = 'application/json')
         self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json(), {"signup" : "success!"})
 
 
         # 올바른 회원 로그인 
