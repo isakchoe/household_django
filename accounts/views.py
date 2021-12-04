@@ -16,17 +16,18 @@ def signup(request):  # User model CREATE
     password = request.data.get('password')
     password_confirmation = request.data.get('passwordConfirmation')
     username = request.data.get('username')
-
+    
+    # 비밀번호와 비밀번호 확인이 일치하지 않는 경우 
     if password != password_confirmation:
         return Response({"error": "비밀번호와 비밀번호 확인이 일치하지 않습니다."}, status = status.HTTP_400_BAD_REQUEST)
 
+    # 이미 존재하는 아이디인 경우 
     if User.objects.filter(username = username).exists():
         return Response({"error" : "이미 존재하는 아이디입니다!"}, status = status.HTTP_400_BAD_REQUEST)
 
     serializer = UserSerializer(data=request.data)
 
-
-    # Create User Instance
+    # 정상 요청에 응답 처리 
     if serializer.is_valid(raise_exception=True):
         user = serializer.save()
         
