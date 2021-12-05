@@ -114,8 +114,6 @@ WSGI_APPLICATION = 'household.wsgi.application'
 
 
 DATABASES = my_settings.DATABASES
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

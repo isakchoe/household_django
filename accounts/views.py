@@ -15,15 +15,15 @@ def signup(request):  # User model CREATE
     # 데이터 받기 
     password = request.data.get('password')
     password_confirmation = request.data.get('passwordConfirmation')
-    username = request.data.get('username')
+    email = request.data.get('email')
     
     # 비밀번호와 비밀번호 확인이 일치하지 않는 경우 
     if password != password_confirmation:
         return Response({"error": "비밀번호와 비밀번호 확인이 일치하지 않습니다."}, status = status.HTTP_400_BAD_REQUEST)
 
     # 이미 존재하는 아이디인 경우 
-    if User.objects.filter(username = username).exists():
-        return Response({"error" : "이미 존재하는 아이디입니다!"}, status = status.HTTP_400_BAD_REQUEST)
+    if User.objects.filter(email = email).exists():
+        return Response({"error" : "이미 존재하는 이메일입니다!"}, status = status.HTTP_400_BAD_REQUEST)
 
     serializer = UserSerializer(data=request.data)
 

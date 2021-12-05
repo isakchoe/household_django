@@ -16,7 +16,7 @@ class SignupTest(unittest.TestCase):
         
         # 올바른 회원가입
         signup_data = {
-            'username': 'admin',
+            'email': 'admin@naver.com',
             'password': 'test1',
             'passwordConfirmation': 'test1'
         }
@@ -28,7 +28,7 @@ class SignupTest(unittest.TestCase):
 
         # 올바른 회원 로그인 
         login_data = {
-            'username': 'admin',
+            'email': 'admin@naver.com',
             'password': 'test1',
         }
 
@@ -39,7 +39,7 @@ class SignupTest(unittest.TestCase):
 
         # 잘못된 로그인 
         false_login_data = {
-            'username': 'admin',
+            'email': 'admin@naver.com',
             'password': 'test2',
         }
 
@@ -51,7 +51,7 @@ class SignupTest(unittest.TestCase):
 
         # 잘못된 회원가입 -- 비밀번호와 비밀번호 확인 불일치 
         false_signup_data = {
-            'username': 'admin',
+            'email': 'admin@naver.com',
             'password': 'test',
             'passwordConfirmation': 'test1'
         }
