@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.db.models.fields import DateTimeField
+
 
 # Create your models here.
 class FinancialMemo(models.Model):
