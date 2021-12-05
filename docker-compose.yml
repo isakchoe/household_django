@@ -30,6 +30,7 @@ services:
       MYSQL_PASSWORD: django
     ports:
       - "8000:8000"
+    # depends on 옵션이 있어도, db가 먼저 실행되는 것을 보장할 수 없다. 
     depends_on:
       - db 
 
